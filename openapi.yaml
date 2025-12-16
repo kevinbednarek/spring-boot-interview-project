@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: Interview Project API Documentation
+  description: Interview Project REST API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Generated server url
+paths:
+  /interview-project/v1:
+    post:
+      summary: Generates a list of top n price increases and decreases for a given year
+      description: Generates a list of top n price increases and decreases for a given year
+      operationId: generatePriceReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestObject'
+        required: true
+      responses:
+        '200':
+          description: Successfully changed status for template resource version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseObject'
+components:
+  schemas:
+    RequestObject:
+      type: object
+      required:
+        - year
+        - numberOfRecords
+      properties:
+        year:
+          type: integer
+          format: int32
+          example: 2024
+        numberOfRecords:
+          type: integer
+          format: int32
+          example: 10
+    ResponseObject:
+      type: object
+      properties:
+        year:
+          type: integer
+          format: int32
+          example: 2024
+        numberOfRecords:
+          type: integer
+          format: int32
+          example: 10
+        topPriceIncreases:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugEntry'
+        topPriceDecreases:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugEntry'
+    DrugEntry:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acetaminophen
+        priceChange:
+          type: number
+          format: double
+          example: 0.01
+        effectiveDate:
+          type: string
+          format: date
+          example: '2024-10-23'
