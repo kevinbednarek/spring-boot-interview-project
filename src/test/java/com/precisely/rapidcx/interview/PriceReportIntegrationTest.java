@@ -1,8 +1,8 @@
-package com.precisely.rapidcx.interview.application.service;
+package com.precisely.rapidcx.interview;
 
-import HelperObjects.PriceChangeEntry;
-import HelperObjects.PriceReportRequest;
-import HelperObjects.PriceReportResponse;
+import com.precisely.rapidcx.interview.models.PriceChangeEntry;
+import com.precisely.rapidcx.interview.models.PriceReportRequest;
+import com.precisely.rapidcx.interview.models.PriceReportResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

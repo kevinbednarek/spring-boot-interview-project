@@ -5,4 +5,10 @@ This project is a simple REST API application designed to demonstrate basic Spri
 
 ## Objectives
 - Walk us through the application flow and describe what each component does.
-- Run the application and test it, ensuring that the tests pass and the application works as expected.
+- Run the application.
+- Send a request to the application.
+  - Can be done with any REST client (Postman) or by running the provided PriceReportIntegrationTest test.
+- Analyze the response. Did it return the expected data?
+  - If not, what went wrong?
+  - How can we fix it to make the tests pass?
+
