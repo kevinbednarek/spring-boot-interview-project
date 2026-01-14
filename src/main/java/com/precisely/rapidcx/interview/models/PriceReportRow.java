@@ -3,9 +3,11 @@ package com.precisely.rapidcx.interview.models;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class PriceReportRow {
     @CsvBindByName(column = "NDC Description")
     private String ndcDescription;
