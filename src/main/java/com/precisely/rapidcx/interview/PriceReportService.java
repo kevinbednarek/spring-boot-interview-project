@@ -2,10 +2,8 @@ package com.precisely.rapidcx.interview;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.precisely.rapidcx.interview.models.PriceChangeEntry;
-import com.precisely.rapidcx.interview.models.PriceReportRequest;
 import com.precisely.rapidcx.interview.models.PriceReportResponse;
 import com.precisely.rapidcx.interview.models.PriceReportRow;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -20,12 +18,14 @@ import java.util.PriorityQueue;
 public class PriceReportService {
     private final PriceReportGenerator priceReportGenerator;
 
-    @Autowired
     public PriceReportService(PriceReportGenerator priceReportGenerator) {
         this.priceReportGenerator = priceReportGenerator;
     }
 
-    public PriceReportResponse generatePriceReport(PriceReportRequest request) {
+    public PriceReportResponse generatePriceReport() {
+        int year = 2024;
+        int numberOfRecords = 10;
+
         try (InputStream inputStream = priceReportGenerator.streamPriceReport(); InputStreamReader reader = new InputStreamReader(inputStream)) {
             Iterator<PriceReportRow> rows = new CsvToBeanBuilder<PriceReportRow>(reader)
                     .withType(PriceReportRow.class)
@@ -40,19 +40,19 @@ public class PriceReportService {
                 PriceReportRow row = rows.next();
 
                 topIncreases.offer(row);
-                if (topIncreases.size() >= request.getNumberOfRecords()) {
+                if (topIncreases.size() >= numberOfRecords) {
                     topIncreases.poll();
                 }
                 topDecreases.offer(row);
-                if (topDecreases.size() >= request.getNumberOfRecords()) {
+                if (topDecreases.size() >= numberOfRecords) {
                     topDecreases.poll();
                 }
             }
 
             PriceReportResponse response = new PriceReportResponse();
 
-            response.setYear(request.getYear());
-            response.setNumberOfRecords(request.getNumberOfRecords());
+            response.setYear(year);
+            response.setNumberOfRecords(numberOfRecords);
             response.setTopPriceIncreases(topIncreases.stream()
                     .map(this::mapToPriceChangeEntry)
                     .sorted(Comparator.comparingDouble(PriceChangeEntry::getPriceChange).reversed())

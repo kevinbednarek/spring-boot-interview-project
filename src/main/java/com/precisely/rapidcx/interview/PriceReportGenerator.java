@@ -1,6 +1,5 @@
 package com.precisely.rapidcx.interview;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import java.io.InputStream;
 public class PriceReportGenerator {
     private final ResourceLoader resourceLoader;
 
-    @Autowired
     public PriceReportGenerator(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }

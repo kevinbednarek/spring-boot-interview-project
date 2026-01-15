@@ -1,7 +1,6 @@
 package com.precisely.rapidcx.interview;
 
 import com.precisely.rapidcx.interview.models.PriceChangeEntry;
-import com.precisely.rapidcx.interview.models.PriceReportRequest;
 import com.precisely.rapidcx.interview.models.PriceReportResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +24,11 @@ class PriceReportIntegrationTest {
 
     @Test
     void sampleRequest() {
-        String url = "http://localhost:" + port + "/interview-project/v1";
+        String url = "http://localhost:" + port;
         int year = 2024;
         int numberOfRecords = 10;
 
-        PriceReportRequest request = PriceReportRequest.builder()
-                .numberOfRecords(numberOfRecords)
-                .year(year)
-                .build();
-
-        ResponseEntity<PriceReportResponse> response = restTemplate.postForEntity(url, request, PriceReportResponse.class);
+        ResponseEntity<PriceReportResponse> response = restTemplate.getForEntity(url, PriceReportResponse.class);
 
         PriceReportResponse responseBody = response.getBody();
 

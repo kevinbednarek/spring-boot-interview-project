@@ -1,7 +1,6 @@
 package com.precisely.rapidcx.interview;
 
 import com.precisely.rapidcx.interview.models.PriceChangeEntry;
-import com.precisely.rapidcx.interview.models.PriceReportRequest;
 import com.precisely.rapidcx.interview.models.PriceReportResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,7 @@ class PriceReportServiceTest {
 
     @Test
     void generatePriceReportTest() {
-        PriceReportRequest requestObject = new PriceReportRequest();
-        requestObject.setYear(2024);
-        requestObject.setNumberOfRecords(10);
-
-        PriceReportResponse response = priceReportService.generatePriceReport(requestObject);
+        PriceReportResponse response = priceReportService.generatePriceReport();
 
         assertThat(response).isNotNull();
         assertThat(response.getTopPriceIncreases()).hasSize(10);
